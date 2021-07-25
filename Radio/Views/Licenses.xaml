@@ -1,0 +1,19 @@
+﻿<Window x:Class="Radio.Views.Licenses"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:properties="clr-namespace:Radio.Properties"
+        mc:Ignorable="d"
+        Title="{x:Static properties:Resources.licenses}" WindowStyle="ToolWindow" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner" Height="400" Width="600" ui:WindowHelper.UseModernWindowStyle="True">
+    <DockPanel Margin="5">
+        <ComboBox SelectedIndex="0" SelectionChanged="UpdateLicense" DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0, 0, 0, 10">
+            <ComboBoxItem Content="ModernWPF"/>
+            <ComboBoxItem Content="Font Awesome"/>
+            <ComboBoxItem Content="LibVLCSharp"/>
+        </ComboBox>
+        <Button Click="Ok_Click" MinWidth="75" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Content="{x:Static properties:Resources.close}" Margin="0, 5, 0, 0"/>
+        <TextBox x:Name="CurrentLicense" DockPanel.Dock="Top" AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+    </DockPanel>
+</Window>

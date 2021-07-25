@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ready" xml:space="preserve">
+        <value>Gotowy</value>
+    </data>
+  <data name="connecting" xml:space="preserve">
+    <value>Łączenie...</value>
+  </data>
+  <data name="buffering" xml:space="preserve">
+    <value>Buforowanie...</value>
+  </data>
+  <data name="playing_station" xml:space="preserve">
+    <value>Gram: {0}</value>
+  </data>
+  <data name="connectionLostWrongAddress" xml:space="preserve">
+    <value>Połączenie zerwane lub link jest niepoprawny</value>
+  </data>
+  <data name="addStation" xml:space="preserve">
+    <value>Dodaj stacje</value>
+  </data>
+  <data name="editStation" xml:space="preserve">
+    <value>Edytuj stacje</value>
+  </data>
+  <data name="deleteStationQuestion" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę stację?</value>
+  </data>
+  <data name="question" xml:space="preserve">
+    <value>Pytanie</value>
+  </data>
+  <data name="analizingFile" xml:space="preserve">
+    <value>Analizuje plik...</value>
+  </data>
+  <data name="analizingLink" xml:space="preserve">
+    <value>Analizuje link: {0}...</value>
+  </data>
+  <data name="changesSavedSuccessfully" xml:space="preserve">
+    <value>Zmiany zapisane pomyślnie</value>
+  </data>
+  <data name="choosePlsDialog" xml:space="preserve">
+    <value>Wybierz plik PLS</value>
+  </data>
+  <data name="couldNotFindName" xml:space="preserve">
+    <value>Nie znaleziono nazwy stacji. Ustaw ją w zakładce "Główne dane"</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="fatalError" xml:space="preserve">
+    <value>Krytyczny błąd</value>
+  </data>
+  <data name="fileRead" xml:space="preserve">
+    <value>Plik przeczytany.</value>
+  </data>
+  <data name="gettingStationName" xml:space="preserve">
+    <value>Znajdowanie nazwy stacji...</value>
+  </data>
+  <data name="invalidAddress" xml:space="preserve">
+    <value>Nieprawidłowy adres</value>
+  </data>
+  <data name="linkInvalid" xml:space="preserve">
+    <value>Link {0} jest nieprawidłowy</value>
+  </data>
+  <data name="linkIsValid" xml:space="preserve">
+    <value>Link {0} jest prawidłowy.</value>
+  </data>
+  <data name="nameFound" xml:space="preserve">
+    <value>Nazwa nie została znaleziona.</value>
+  </data>
+  <data name="plsFile" xml:space="preserve">
+    <value>Plik PLS</value>
+  </data>
+  <data name="plsNoResults" xml:space="preserve">
+    <value>Nie znaleziono żadnego działającego linku. Spróbuj zmienić plik PLS lub wypełnij manualnie dane w zakładce "Główne dane".</value>
+  </data>
+  <data name="readingPls" xml:space="preserve">
+    <value>Czytanie pliku PLS...</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Sukces</value>
+  </data>
+  <data name="unsavedChangesWarning" xml:space="preserve">
+    <value>Masz niezapisane zmiany. Czy na pewno chcesz wyjść?</value>
+  </data>
+  <data name="validatingLink" xml:space="preserve">
+    <value>Sprawdzanie linku...</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>Widok</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="quit" xml:space="preserve">
+    <value>Wyjdź</value>
+  </data>
+  <data name="minimizeToTray" xml:space="preserve">
+    <value>Minimalizuj do zasobnika</value>
+  </data>
+  <data name="minimizeTraySettings" xml:space="preserve">
+    <value>Minimalizuj do zasobnika zamiast zamykania</value>
+  </data>
+  <data name="play" xml:space="preserve">
+    <value>Graj</value>
+  </data>
+  <data name="saveStations" xml:space="preserve">
+    <value>Zapisz stacje</value>
+  </data>
+  <data name="stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="deleteStation" xml:space="preserve">
+    <value>Usuń stacje</value>
+  </data>
+  <data name="address" xml:space="preserve">
+    <value>Adres:</value>
+  </data>
+  <data name="loadFile" xml:space="preserve">
+    <value>Załaduj plik</value>
+  </data>
+  <data name="fromPlsFile" xml:space="preserve">
+    <value>Z pliku PLS</value>
+  </data>
+  <data name="mainData" xml:space="preserve">
+    <value>Główne dane</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Nazwa:</value>
+  </data>
+  <data name="plsPathLink" xml:space="preserve">
+    <value>Ścieżka lub link do pliku PLS</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="licenses" xml:space="preserve">
+    <value>Licencje</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="appName" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="about" xml:space="preserve">
+    <value>O programie</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+</root>
