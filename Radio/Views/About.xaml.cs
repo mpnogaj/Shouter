@@ -11,7 +11,8 @@ namespace Radio.Views
         public About()
         {
             InitializeComponent();
-            Version.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            Version.Text = string.Format($"{version.Major}.{version.Minor}.{version.Revision}");
         }
 
         private void Close_Click(object sender, RoutedEventArgs e) => Close();
