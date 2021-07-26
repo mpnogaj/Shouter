@@ -1,7 +1,9 @@
-﻿using Radio.ViewModels;
+﻿using Radio.Models;
+using Radio.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using S = Radio.Properties.Settings;
 
@@ -29,19 +31,37 @@ namespace Radio.Views
 
             icon = new NotifyIcon();
             icon.Icon = Properties.Resources.icon;
-            icon.ContextMenu = new ContextMenu(new MenuItem[]
+            icon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[]
             {
-                new MenuItem("Pokaż", onShow),
-                new MenuItem("-"),
-                new MenuItem("Zamknij", onClose),
+                new System.Windows.Forms.MenuItem("Pokaż", onShow),
+                new System.Windows.Forms.MenuItem("-"),
+                new System.Windows.Forms.MenuItem("Zamknij", onClose),
             });
             
             icon.DoubleClick += (sender, args) =>
             {
                 ShowWindow();
             };
+
+            Player.LoadedBehavior = MediaState.Manual;
+            Player.UnloadedBehavior = MediaState.Manual;
+            
             
             vm = new MainWindowViewModel();
+            Player.MediaFailed += (sender, args) => vm.UpdateStatus(MediaStatus.Error);
+            Player.BufferingEnded += (sender, args) => vm.UpdateStatus(MediaStatus.Playing);
+            
+            vm.PlayRequest += (station, args) =>
+            {
+                Player.Source = new Uri(((Station)station).Address);
+                Player.Play();
+                vm.UpdateStatus(MediaStatus.Connecting);
+            };
+            vm.StopRequest += (sender, args) =>
+            {
+                Player.Stop();
+                vm.UpdateStatus(MediaStatus.Stopped);
+            };
             DataContext = vm;
         }
 

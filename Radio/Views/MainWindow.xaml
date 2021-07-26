@@ -8,17 +8,19 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
-        Title="{x:Static properties:Resources.appName}" MinHeight="345" MinWidth="425" ui:WindowHelper.UseModernWindowStyle="True" ResizeMode="CanMinimize">
+        Title="{x:Static properties:Resources.appName}" ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="8*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <MediaElement x:Name="Player" Visibility="Collapsed"/>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="{x:Static properties:Resources.view}">
                 <MenuItem Header="{x:Static properties:Resources.minimizeToTray}" Click="MinimizeTray_Click"/>
@@ -54,8 +56,8 @@
                 <MenuItem Header="{x:Static properties:Resources.licenses}" Click="Licenses_Click"/>
             </MenuItem>
         </Menu>
-        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="10, 0, 10, 0" Padding="5,3,5,3" IsReadOnly="True" HorizontalScrollBarVisibility="Visible" Text="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        <ListBox Grid.Row="2" Grid.Column="0" Margin="10, 10, 5, 10" ItemsSource="{Binding Stations}" SelectedItem="{Binding SelectedStation, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="10, 5, 10, 0" Padding="5,3,5,3" IsReadOnly="True" HorizontalScrollBarVisibility="Visible" Text="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Margin="10" ItemsSource="{Binding Stations}" SelectedItem="{Binding SelectedStation, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
             <ListBox.Resources>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="0,0,0,0"/>
@@ -72,33 +74,53 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ui:SimpleStackPanel Margin="5, 10, 10, 10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Orientation="Vertical">
-            <ui:SimpleStackPanel.Resources>
-                <Style TargetType="Button" x:Key="DefaultBtn" BasedOn="{StaticResource AccentButtonStyle}">
-                    <Setter Property="Margin" Value="0, 5, 0, 5"/>
-                    <Setter Property="MinWidth" Value="125"/>
-                </Style>
-            </ui:SimpleStackPanel.Resources>
+        <ui:SimpleStackPanel Margin="10, 0, 0, 10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
             <Button>
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource DefaultBtn}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsPlaying}" Value="False">
-                                <Setter Property="Content" Value="{x:Static properties:Resources.play}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Play"/>
+                                    </Setter.Value>
+                                </Setter>
                                 <Setter Property="Command" Value="{Binding PlayCommand}"/>
+                                <Setter Property="ToolTip" Value="{x:Static properties:Resources.play}"/>
                             </DataTrigger>
-                                <DataTrigger Binding="{Binding IsPlaying}" Value="True">
-                                <Setter Property="Content" Value="{x:Static properties:Resources.stop}"/>
+                            <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Stop"/>
+                                    </Setter.Value>
+                                </Setter>
                                 <Setter Property="Command" Value="{Binding StopCommand}"/>
+                                <Setter Property="ToolTip" Value="{x:Static properties:Resources.stop}"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="{x:Static properties:Resources.addStation}" Style="{StaticResource DefaultBtn}" Command="{Binding AddCommand}"/>
-            <Button Content="{x:Static properties:Resources.editStation}" Style="{StaticResource DefaultBtn}" Command="{Binding EditCommand}"/>
-            <Button Content="{x:Static properties:Resources.deleteStation}" Style="{StaticResource DefaultBtn}" Command="{Binding DeleteCommand}"/>
-            <Button Content="{x:Static properties:Resources.saveStations}" Style="{StaticResource DefaultBtn}" Command="{Binding SaveCommand}"/>
+            <Button ToolTip="{x:Static properties:Resources.addStation}" Style="{StaticResource DefaultBtn}" Command="{Binding AddCommand}">
+                <Button.Content>
+                    <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Plus"/>
+                </Button.Content>
+            </Button>
+            <Button ToolTip="{x:Static properties:Resources.editStation}" Style="{StaticResource DefaultBtn}" Command="{Binding EditCommand}">
+                <Button.Content>
+                    <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Edit"/>
+                </Button.Content>
+            </Button>
+            <Button ToolTip="{x:Static properties:Resources.deleteStation}" Style="{StaticResource DefaultBtn}" Command="{Binding DeleteCommand}">
+                <Button.Content>
+                    <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_TrashAlt"/>
+                </Button.Content>
+            </Button>
+            <Button ToolTip="{x:Static properties:Resources.saveStations}" Style="{StaticResource DefaultBtn}" Command="{Binding SaveCommand}">
+                <Button.Content>
+                    <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Save"/>
+                </Button.Content>
+            </Button>
         </ui:SimpleStackPanel>
     </Grid>
 </Window>

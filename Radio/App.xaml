@@ -14,9 +14,14 @@
             <Style TargetType="fa5:FontAwesome" x:Key="DefaultFontAwesome">
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.25"/>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
-            <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
-                <Setter Property="MinWidth" Value="75"/>
+            <Style TargetType="Button" x:Key="DefaultBtn" BasedOn="{StaticResource AccentButtonStyle}">
+                <Setter Property="Width" Value="auto"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -28,10 +28,10 @@
     <value>Połączenie zerwane lub link jest niepoprawny</value>
   </data>
   <data name="addStation" xml:space="preserve">
-    <value>Dodaj stacje</value>
+    <value>Dodaj stację</value>
   </data>
   <data name="editStation" xml:space="preserve">
-    <value>Edytuj stacje</value>
+    <value>Edytuj stację</value>
   </data>
   <data name="deleteStationQuestion" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć tę stację?</value>
@@ -130,7 +130,7 @@
     <value>Stop</value>
   </data>
   <data name="deleteStation" xml:space="preserve">
-    <value>Usuń stacje</value>
+    <value>Usuń stację</value>
   </data>
   <data name="address" xml:space="preserve">
     <value>Adres:</value>
@@ -167,5 +167,14 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>Zamknij</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Anuluj</value>
   </data>
 </root>

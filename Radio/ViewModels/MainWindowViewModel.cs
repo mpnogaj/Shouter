@@ -1,5 +1,4 @@
 ﻿using FontAwesome5;
-using LibVLCSharp.Shared;
 using Radio.Models;
 using Radio.Properties;
 using Radio.ViewModels.Commands;
@@ -15,13 +14,14 @@ namespace Radio.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private const char Separator = ';';
-        private readonly MediaPlayer _mediaPlayer;
-        private readonly LibVLC _libVlc;
         private readonly string _stationsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private readonly string _stationsFile;
-        
+
         private bool _unsavedChanges;
         private string _currentStationName = string.Empty;
+
+        public event EventHandler PlayRequest;
+        public event EventHandler StopRequest;
 
         #region Properties
         private ObservableCollection<Station> _stations;
@@ -79,46 +79,7 @@ namespace Radio.ViewModels
 
         public MainWindowViewModel()
         {
-            Core.Initialize();
             _stationsFile = $@"{_stationsDirectory}\Radio\stations.csv";
-            _libVlc = new LibVLC(enableDebugLogs: true);
-            _mediaPlayer = new MediaPlayer(_libVlc);
-            _libVlc.Log += (sender, e) =>
-            {
-                Console.WriteLine(e.FormattedLog);
-                if (_mediaPlayer != null && _mediaPlayer.Media != null)
-                {
-                    switch (_mediaPlayer.Media.State)
-                    {
-                        case VLCState.Opening:
-                            Status = Resources.connecting;
-                            break;
-                        case VLCState.Buffering:
-                            Status = Resources.buffering;
-                            break;
-                        case VLCState.Playing:
-                            Status = string.Format(Resources.playing_station, _currentStationName);
-                            break;
-                        case VLCState.Paused:
-                        case VLCState.Stopped:
-                        case VLCState.NothingSpecial:
-                            Status = Resources.ready;
-                            break;
-                        case VLCState.Ended:
-                        case VLCState.Error:
-                            Status = Resources.connectionLostWrongAddress;
-                            break;
-                    }
-                }
-            };
-            _mediaPlayer.Playing += (sender, args) =>
-            {
-                IsPlaying = true;
-            };
-            _mediaPlayer.Stopped += (sender, args) =>
-            {
-                IsPlaying = false;
-            };
 
             Stations = new ObservableCollection<Station>();
             LoadStations();
@@ -143,7 +104,7 @@ namespace Radio.ViewModels
 
             AddCommand = new RelayCommand(() =>
             {
-                PrepareDialog(Resources.addStation, string.Empty, string.Empty, (tuple) =>
+                PrepareDialog(Resources.addStation, Resources.add, string.Empty, string.Empty, (tuple) =>
                 {
                     Stations.Add(new Station
                     {
@@ -155,7 +116,7 @@ namespace Radio.ViewModels
 
             EditCommand = new RelayCommand(() =>
             {
-                PrepareDialog(Resources.editStation, SelectedStation.Name, SelectedStation.Address, (tuple) =>
+                PrepareDialog(Resources.editStation, Resources.edit, SelectedStation.Name, SelectedStation.Address, (tuple) =>
                 {
                     Stations[Stations.IndexOf(SelectedStation)] = new Station
                     {
@@ -167,7 +128,10 @@ namespace Radio.ViewModels
 
             DeleteCommand = new RelayCommand(() =>
             {
-                var result = YesNoDialog.ShowDialog(Resources.deleteStationQuestion, Resources.question, EFontAwesomeIcon.Solid_QuestionCircle);
+                var result = YesNoDialog.ShowDialog(
+                    Resources.deleteStationQuestion,
+                    Resources.question,
+                    EFontAwesomeIcon.Solid_QuestionCircle);
                 if (result)
                 {
                     Stations.Remove(SelectedStation);
@@ -185,15 +149,34 @@ namespace Radio.ViewModels
                 {
                     sw.Write(sb.ToString());
                 }
-                OkDialog.ShowDialog(Resources.changesSavedSuccessfully, Resources.success, EFontAwesomeIcon.Solid_InfoCircle);
+                OkDialog.ShowDialog(
+                    Resources.changesSavedSuccessfully,
+                    Resources.success,
+                    EFontAwesomeIcon.Solid_InfoCircle);
                 _unsavedChanges = false;
             });
         }
 
-        ~MainWindowViewModel()
+        public void UpdateStatus(MediaStatus status)
         {
-            _libVlc.Dispose();
-            _mediaPlayer.Dispose();
+            switch (status)
+            {
+                case MediaStatus.Playing:
+                    IsPlaying = true;
+                    Status = string.Format(Resources.playing_station, _currentStationName);
+                    break;
+                case MediaStatus.Stopped:
+                    IsPlaying = false;
+                    Status = Resources.ready;
+                    break;
+                case MediaStatus.Connecting:
+                    Status = Resources.connecting;
+                    break;
+                case MediaStatus.Error:
+                    Status = Resources.connectionLostWrongAddress;
+                    IsPlaying = false;
+                    break;
+            }
         }
 
         private void Play(Station s)
@@ -201,8 +184,7 @@ namespace Radio.ViewModels
             try
             {
                 _currentStationName = s.Name;
-                _mediaPlayer.Media = new Media(_libVlc, new Uri(s.Address));
-                _mediaPlayer.Play();
+                PlayRequest?.Invoke(s, EventArgs.Empty);
             }
             catch (UriFormatException)
             {
@@ -213,7 +195,7 @@ namespace Radio.ViewModels
         private void Stop()
         {
             _currentStationName = string.Empty;
-            _mediaPlayer.Stop();
+            StopRequest?.Invoke(null, EventArgs.Empty);
         }
 
         private void LoadStations()
@@ -244,7 +226,12 @@ namespace Radio.ViewModels
             catch { /*Ignore*/ }
         }
 
-        private void PrepareDialog(string title, string initName, string initAddress, Action<Tuple<string, string>> onOkPressed)
+        private void PrepareDialog(
+            string title,
+            string okText,
+            string initName,
+            string initAddress,
+            Action<Tuple<string, string>> onOkPressed)
         {
             var dialog = new AddEditDialog();
             var vm = new AddEditViewModel((tuple) =>
@@ -259,6 +246,7 @@ namespace Radio.ViewModels
             })
             {
                 Title = title,
+                OkText = okText,
                 Name = initName,
                 Address = initAddress
             };
@@ -273,7 +261,10 @@ namespace Radio.ViewModels
             {
                 return;
             }
-            var result = YesNoDialog.ShowDialog(Resources.unsavedChangesWarning, Resources.question, EFontAwesomeIcon.Solid_ExclamationTriangle);
+            var result = YesNoDialog.ShowDialog(
+                Resources.unsavedChangesWarning,
+                Resources.question,
+                EFontAwesomeIcon.Solid_ExclamationTriangle);
             if (!result)
             {
                 e.Cancel = true;

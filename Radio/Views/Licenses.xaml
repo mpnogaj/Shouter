@@ -11,7 +11,6 @@
         <ComboBox SelectedIndex="0" SelectionChanged="UpdateLicense" DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0, 0, 0, 10">
             <ComboBoxItem Content="ModernWPF"/>
             <ComboBoxItem Content="Font Awesome"/>
-            <ComboBoxItem Content="LibVLCSharp"/>
         </ComboBox>
         <Button Click="Ok_Click" MinWidth="75" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Content="{x:Static properties:Resources.close}" Margin="0, 5, 0, 0"/>
         <TextBox x:Name="CurrentLicense" DockPanel.Dock="Top" AcceptsReturn="True" TextWrapping="NoWrap" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>

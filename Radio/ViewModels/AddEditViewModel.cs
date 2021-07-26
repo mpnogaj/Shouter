@@ -38,6 +38,13 @@ namespace Radio.ViewModels
             set => CheckAndSetProperty(ref _title, value, nameof(Title));
         }
 
+        private string _okText;
+        public string OkText
+        {
+            get => _okText;
+            set => CheckAndSetProperty(ref _okText, value, nameof(OkText));
+        }
+
         private string _plsPath;
         public string PlsPath
         {

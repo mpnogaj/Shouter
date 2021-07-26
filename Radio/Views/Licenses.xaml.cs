@@ -11,11 +11,9 @@ namespace Radio.Views
     {
         private const string ModernWpfDir = @"Licenses\modernwpf.txt";
         private const string IconsDir = @"Licenses\icons.txt";
-        private const string VlcDir = @"Licenses\libvlcsharp.txt";
 
         private readonly string ModernWpfText;
         private readonly string IconsText;
-        private readonly string VlcText;
 
         public Licenses()
         {
@@ -27,11 +25,6 @@ namespace Radio.Views
             using (StreamReader sr = new StreamReader(IconsDir))
             {
                 IconsText = sr.ReadToEnd();
-            }
-
-            using (StreamReader sr = new StreamReader(VlcDir))
-            {
-                VlcText = sr.ReadToEnd();
             }
 
             InitializeComponent();
@@ -50,9 +43,6 @@ namespace Radio.Views
                     break;
                 case 1:
                     CurrentLicense.Text = IconsText;
-                    break;
-                case 2:
-                    CurrentLicense.Text = VlcText;
                     break;
                 default:
                     CurrentLicense.Text = string.Empty;

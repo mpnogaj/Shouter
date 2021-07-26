@@ -60,7 +60,7 @@
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>AFAE0930AE1A9F2B5F75A4413169E1DC28701B1D</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>C17F4F54378CB8F5DC0B75DCBF53457877D20496</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <EntryPointProjectUniqueName>..\Radio\Radio.csproj</EntryPointProjectUniqueName>
@@ -153,7 +153,6 @@
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\pl-PL\Resources.resw" />
-    <None Include="RadioInstaller_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <ItemGroup>
