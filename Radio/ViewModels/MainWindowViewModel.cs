@@ -22,6 +22,7 @@ namespace Radio.ViewModels
 
         public event EventHandler PlayRequest;
         public event EventHandler StopRequest;
+        public event EventHandler ToggleMuteRequest;
 
         #region Properties
         private ObservableCollection<Station> _stations;
@@ -62,6 +63,17 @@ namespace Radio.ViewModels
                 Settings.Default.MinimizeToTray = value;
             }
         }
+
+        private int _volume;
+        public int Volume
+        {
+            get => _volume;
+            set
+            {
+                CheckAndSetProperty(ref _volume, value, nameof(Volume));
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -69,6 +81,7 @@ namespace Radio.ViewModels
         public RelayCommand PlayCommand { get; }
         public RelayCommand ForcePlayCommand { get; }
         public RelayCommand StopCommand { get; }
+        public RelayCommand ToggleMuteCommand { get; }
         public RelayCommand AddCommand { get; }
         public RelayCommand EditCommand { get; }
         public RelayCommand DeleteCommand { get; }
@@ -91,6 +104,10 @@ namespace Radio.ViewModels
                 Play(SelectedStation);
             }, () => !IsPlaying && SelectedStation != null);
 
+            ToggleMuteCommand = new RelayCommand(() => 
+            {
+                ToggleMuteRequest?.Invoke(null, EventArgs.Empty);
+            });
             ForcePlayCommand = new RelayCommand(() =>
             {
                 Stop();

@@ -122,5 +122,32 @@
                 </Button.Content>
             </Button>
         </ui:SimpleStackPanel>
+        <ui:SimpleStackPanel Margin="0, 0, 10, 10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+            <Slider Minimum="0" Maximum="100" Width="125"/>
+            <Button Command="{Binding ToggleMuteCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource DefaultBtn}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMuted, ElementName=Player}" Value="True">
+                                <Setter Property="ToolTip" Value="Unmute"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeUp"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsMuted, ElementName=Player}" Value="False">
+                                <Setter Property="ToolTip" Value="Mute"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeMute"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </ui:SimpleStackPanel>
     </Grid>
 </Window>

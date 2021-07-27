@@ -46,7 +46,6 @@ namespace Radio.Views
             Player.LoadedBehavior = MediaState.Manual;
             Player.UnloadedBehavior = MediaState.Manual;
             
-            
             vm = new MainWindowViewModel();
             Player.MediaFailed += (sender, args) => vm.UpdateStatus(MediaStatus.Error);
             Player.BufferingEnded += (sender, args) => vm.UpdateStatus(MediaStatus.Playing);
@@ -61,6 +60,10 @@ namespace Radio.Views
             {
                 Player.Stop();
                 vm.UpdateStatus(MediaStatus.Stopped);
+            };
+            vm.ToggleMuteRequest += (sender, args) =>
+            {
+                Player.IsMuted = !Player.IsMuted;
             };
             DataContext = vm;
         }
