@@ -177,4 +177,10 @@
   <data name="cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
+  <data name="mute" xml:space="preserve">
+    <value>Wycisz</value>
+  </data>
+  <data name="unmute" xml:space="preserve">
+    <value>Wyłącz wyciszenie</value>
+  </data>
 </root>

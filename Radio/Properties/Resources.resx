@@ -286,4 +286,10 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="mute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="unmute" xml:space="preserve">
+    <value>Unmute</value>
+  </data>
 </root>

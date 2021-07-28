@@ -16,10 +16,17 @@ namespace Radio.Views
         EventHandler onShow;
         EventHandler onClose;
         private NotifyIcon icon;
+        private double _prevVolume = 50.0;
 
         public MainWindow()
         {
             InitializeComponent();
+            vm = new MainWindowViewModel
+            {
+                Volume = S.Default.Volume
+            };
+
+            #region Setup window
             onShow += (sender, args) => ShowWindow();
             onClose += (sender, args) => ForceClose();
             WindowState = S.Default.Maximized ? WindowState.Maximized : WindowState.Normal;
@@ -27,8 +34,8 @@ namespace Radio.Views
             Top = S.Default.Position.Y;
             Width = S.Default.Size.Width;
             Height = S.Default.Size.Height;
-
-
+            #endregion
+            #region Setup tray icon
             icon = new NotifyIcon();
             icon.Icon = Properties.Resources.icon;
             icon.ContextMenu = new System.Windows.Forms.ContextMenu(new System.Windows.Forms.MenuItem[]
@@ -43,10 +50,11 @@ namespace Radio.Views
                 ShowWindow();
             };
 
+            #endregion
+            #region Setup player
             Player.LoadedBehavior = MediaState.Manual;
             Player.UnloadedBehavior = MediaState.Manual;
-            
-            vm = new MainWindowViewModel();
+            Player.IsMuted = S.Default.Volume == 0;
             Player.MediaFailed += (sender, args) => vm.UpdateStatus(MediaStatus.Error);
             Player.BufferingEnded += (sender, args) => vm.UpdateStatus(MediaStatus.Playing);
             
@@ -61,10 +69,25 @@ namespace Radio.Views
                 Player.Stop();
                 vm.UpdateStatus(MediaStatus.Stopped);
             };
+            vm.ChangeVolumeRequest += (volume, args) =>
+            {
+                Player.Volume = (double)volume;
+                Player.IsMuted = Player.Volume == 0;
+            };
             vm.ToggleMuteRequest += (sender, args) =>
             {
-                Player.IsMuted = !Player.IsMuted;
+                if(Player.IsMuted)
+                {
+                    vm.Volume = _prevVolume;
+                }
+                else
+                {
+                    _prevVolume = vm.Volume;
+                    vm.Volume = 0;
+                }
             };
+            #endregion
+
             DataContext = vm;
         }
 
@@ -87,6 +110,7 @@ namespace Radio.Views
             S.Default.Maximized = WindowState == WindowState.Maximized;
             S.Default.Position = new System.Drawing.Point((int)Left, (int)Top);
             S.Default.Size = new System.Drawing.Size((int)Width, (int)Height);
+            S.Default.Volume = Player.Volume * 100;
             S.Default.Save();
             base.OnClosed(e);
         }

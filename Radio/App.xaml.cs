@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using Radio.Properties;
 
-namespace RadioNEW
+namespace Radio
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -19,6 +20,8 @@ namespace RadioNEW
             }
 
             Directory.SetCurrentDirectory(Path.GetDirectoryName(typeof(App).Assembly.Location));
+
+            Settings.Default.Upgrade();
         }
     }
 }

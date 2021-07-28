@@ -48,7 +48,7 @@
                         <TextBox DockPanel.Dock="Right" Text="{Binding PlsPath}"/>
                     </DockPanel>
                     <TextBlock Text="{x:Static properties:Resources.status}"/>
-                    <TextBox AcceptsReturn="True" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Top" TextWrapping="Wrap" Text="{Binding StatusText}"/>
+                    <TextBox AcceptsReturn="True" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Top" Text="{Binding StatusText}"/>
                 </DockPanel>
             </TabItem>
         </TabControl>

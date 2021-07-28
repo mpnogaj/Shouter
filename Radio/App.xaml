@@ -1,7 +1,6 @@
-﻿<Application x:Class="RadioNEW.App"
+﻿<Application x:Class="Radio.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RadioNEW"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              StartupUri="Views/MainWindow.xaml">

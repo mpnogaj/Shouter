@@ -23,6 +23,7 @@ namespace Radio.ViewModels
         public event EventHandler PlayRequest;
         public event EventHandler StopRequest;
         public event EventHandler ToggleMuteRequest;
+        public event EventHandler ChangeVolumeRequest;
 
         #region Properties
         private ObservableCollection<Station> _stations;
@@ -64,12 +65,17 @@ namespace Radio.ViewModels
             }
         }
 
-        private int _volume;
-        public int Volume
+        private double _volume = 0.5;
+        public double Volume
         {
-            get => _volume;
+            get => _volume * 100.0;
             set
             {
+                value /= 100.0;
+                if(_volume != value)
+                {
+                    ChangeVolumeRequest?.Invoke(value, EventArgs.Empty);
+                }
                 CheckAndSetProperty(ref _volume, value, nameof(Volume));
             }
         }

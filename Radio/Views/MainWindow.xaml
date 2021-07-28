@@ -5,10 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Radio.Views"
         xmlns:properties="clr-namespace:Radio.Properties"
+        xmlns:viewmodels="clr-namespace:Radio.ViewModels" 
+        xmlns:models="clr-namespace:Radio.Models"
+        xmlns:converters="clr-namespace:Radio.Converters"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/" 
+        
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="{x:Static properties:Resources.appName}" ui:WindowHelper.UseModernWindowStyle="True">
+    <Window.Resources>
+        <converters:DoubleToVolumeLevelConverter x:Key="DoubleToVolumeLevelConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,6 +28,12 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Button" x:Key="ActionButton" BasedOn="{StaticResource DefaultBtn}">
+                <Setter Property="Width" Value="35"/>
+                <Setter Property="Height" Value="35"/>
+            </Style>
+        </Grid.Resources>
         <MediaElement x:Name="Player" Visibility="Collapsed"/>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="{x:Static properties:Resources.view}">
@@ -77,7 +91,7 @@
         <ui:SimpleStackPanel Margin="10, 0, 0, 10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
             <Button>
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource DefaultBtn}">
+                    <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsPlaying}" Value="False">
                                 <Setter Property="Content">
@@ -101,46 +115,53 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button ToolTip="{x:Static properties:Resources.addStation}" Style="{StaticResource DefaultBtn}" Command="{Binding AddCommand}">
+            <Button ToolTip="{x:Static properties:Resources.addStation}" Style="{StaticResource ActionButton}" Command="{Binding AddCommand}">
                 <Button.Content>
                     <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Plus"/>
                 </Button.Content>
             </Button>
-            <Button ToolTip="{x:Static properties:Resources.editStation}" Style="{StaticResource DefaultBtn}" Command="{Binding EditCommand}">
+            <Button ToolTip="{x:Static properties:Resources.editStation}" Style="{StaticResource ActionButton}" Command="{Binding EditCommand}">
                 <Button.Content>
                     <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Edit"/>
                 </Button.Content>
             </Button>
-            <Button ToolTip="{x:Static properties:Resources.deleteStation}" Style="{StaticResource DefaultBtn}" Command="{Binding DeleteCommand}">
+            <Button ToolTip="{x:Static properties:Resources.deleteStation}" Style="{StaticResource ActionButton}" Command="{Binding DeleteCommand}">
                 <Button.Content>
                     <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_TrashAlt"/>
                 </Button.Content>
             </Button>
-            <Button ToolTip="{x:Static properties:Resources.saveStations}" Style="{StaticResource DefaultBtn}" Command="{Binding SaveCommand}">
+            <Button ToolTip="{x:Static properties:Resources.saveStations}" Style="{StaticResource ActionButton}" Command="{Binding SaveCommand}">
                 <Button.Content>
                     <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_Save"/>
                 </Button.Content>
             </Button>
         </ui:SimpleStackPanel>
         <ui:SimpleStackPanel Margin="0, 0, 10, 10" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
-            <Slider Minimum="0" Maximum="100" Width="125"/>
             <Button Command="{Binding ToggleMuteCommand}">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource DefaultBtn}">
+                    <Style TargetType="Button" BasedOn="{StaticResource ActionButton}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsMuted, ElementName=Player}" Value="True">
-                                <Setter Property="ToolTip" Value="Unmute"/>
-                                <Setter Property="Content">
-                                    <Setter.Value>
-                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeUp"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsMuted, ElementName=Player}" Value="False">
-                                <Setter Property="ToolTip" Value="Mute"/>
+                            <DataTrigger Binding="{Binding Volume, Converter={StaticResource DoubleToVolumeLevelConverter}}" Value="{x:Static models:VolumeLevel.Muted}">
+                                <Setter Property="ToolTip" Value="{x:Static properties:Resources.unmute}"/>
                                 <Setter Property="Content">
                                     <Setter.Value>
                                         <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeMute"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Volume, Converter={StaticResource DoubleToVolumeLevelConverter}}" Value="{x:Static models:VolumeLevel.Low}">
+                                <Setter Property="ToolTip" Value="{x:Static properties:Resources.mute}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeDown"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Volume, Converter={StaticResource DoubleToVolumeLevelConverter}}" Value="{x:Static models:VolumeLevel.Normal}">
+                                <Setter Property="ToolTip" Value="{x:Static properties:Resources.mute}"/>
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <fa5:FontAwesome Style="{StaticResource DefaultFontAwesome}" Icon="Solid_VolumeUp"/>
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
@@ -148,6 +169,7 @@
                     </Style>
                 </Button.Style>
             </Button>
+            <Slider Minimum="0" Maximum="100" Value="{Binding Volume}" Width="100" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0"/>
         </ui:SimpleStackPanel>
     </Grid>
 </Window>
