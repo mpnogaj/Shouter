@@ -57,13 +57,13 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <GenerateTestArtifacts>False</GenerateTestArtifacts>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>C17F4F54378CB8F5DC0B75DCBF53457877D20496</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>0DA52B9FC5DB8739955E469FABDD50675031B38F</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <EntryPointProjectUniqueName>..\Radio\Shouter.csproj</EntryPointProjectUniqueName>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <EntryPointProjectUniqueName>..\Shouter\Shouter.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <AppxBundle>Always</AppxBundle>
@@ -151,6 +151,7 @@
     <Content Include="Images\Wide310x150Logo.scale-150.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
+    <None Include="ShouterInstaller_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
@@ -158,6 +159,6 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.19041.8" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Radio\Shouter.csproj" />
+    <ProjectReference Include="..\Shouter\Shouter.csproj" />
   </ItemGroup>
 </Project>
